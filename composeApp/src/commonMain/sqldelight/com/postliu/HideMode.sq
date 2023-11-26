@@ -1,0 +1,11 @@
+CREATE TABLE HideMode (
+    hide INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0
+);
+
+INSERT INTO HideMode(hide) VALUES (0);
+
+queryHideMode:
+SELECT * FROM HideMode;
+
+updateHideMode:
+UPDATE HideMode SET hide = ? ;

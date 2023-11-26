@@ -1,0 +1,37 @@
+CREATE TABLE Todo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0,
+    content TEXT NOT NULL,
+    time INTEGER NOT NULL,
+    completed INTEGER NOT NULL DEFAULT 0,
+    selected INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE INDEX Todo_id ON Todo(id);
+
+INSERT INTO Todo(content,time) VALUES ('这是一条默认的待办',1700644628088);
+INSERT INTO Todo(content,time,completed) VALUES ('这是一条已完成的待办',1700654728088,1);
+INSERT INTO Todo(content,time,selected) VALUES ('这是一条已选中的待办',1700664828088,1);
+
+queryTodoList:
+SELECT Todo.id,Todo.content,Todo.time,Todo.completed,Todo.selected FROM Todo JOIN HideMode ON hide = 0 OR (HideMode.hide = 1 AND Todo.completed = 0) ORDER BY completed ASC ,time DESC;
+
+clearTodoList:
+DELETE FROM Todo;
+
+deleteSelectedTodoList:
+DELETE FROM Todo WHERE selected = 1;
+
+insertTodo:
+INSERT INTO Todo (content, time) VALUES ( ?, ?);
+
+editTodoById:
+UPDATE Todo SET content = ? WHERE id = ?;
+
+updateCompletedTodoById:
+UPDATE Todo SET completed = ? WHERE id = ?;
+
+updateSelectedTodoById:
+UPDATE Todo SET selected = ? WHERE id = ?;
+
+updateTodoListSelected:
+UPDATE Todo SET selected = ?;
