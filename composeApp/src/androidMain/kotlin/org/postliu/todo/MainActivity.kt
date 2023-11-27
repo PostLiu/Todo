@@ -15,20 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import org.postliu.todo.utils.ContextUtils
+import theme.TodoMaterialTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ContextUtils.instance.initWindow(window = window)
         setContent {
-            MaterialTheme {
-                val materialColors = MaterialTheme.colors
+            TodoMaterialTheme {
+                val color = MaterialTheme.colors.onPrimary.toArgb()
                 SideEffect {
-                    window.statusBarColor = materialColors.background.toArgb()
+                    window.statusBarColor = color
                     WindowCompat.setDecorFitsSystemWindows(window, false)
                     WindowCompat.getInsetsController(window, window.decorView).apply {
-                        isAppearanceLightStatusBars =
-                            Color.luminance(materialColors.background.toArgb()) > 0.5f
-
+                        isAppearanceLightStatusBars = Color.luminance(color) > 0.5f
                     }
                 }
                 Surface(
@@ -46,5 +47,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    TodoMaterialTheme {
+        App()
+    }
 }

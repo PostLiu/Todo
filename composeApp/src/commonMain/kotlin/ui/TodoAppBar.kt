@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import todoicons.TodoSelectedStateFinish
 import todoicons.TodoSelectedStateNormal
@@ -36,6 +37,8 @@ fun TodoAppBar(todoState: TodoState) {
     val canDeleted by todoState.canDeleted.collectAsState()
     val hideCompletedTodo by todoState.hideCompleted.collectAsState()
     TopAppBar(
+        backgroundColor = MaterialTheme.colors.onPrimary,
+        contentColor = Color.Black,
         title = {
             AnimatedVisibility(
                 editMode, enter = expandHorizontally(), exit = shrinkHorizontally()
@@ -58,14 +61,17 @@ fun TodoAppBar(todoState: TodoState) {
                 IconButton(onClick = {
                     todoState.dispatch(TodoAction.ShowDeletedDialog(true))
                 }, enabled = canDeleted, content = {
-                    Icon(Icons.Sharp.Delete, contentDescription = null)
+                    Icon(
+                        Icons.Sharp.Delete,
+                        contentDescription = null,
+                    )
                 })
                 IconButton(onClick = {
                     todoState.dispatch(TodoAction.AllTodoSelectedUpdate(!allSelected))
                 }, content = {
                     Icon(
                         if (allSelected) TodoIcons.TodoSelectedStateFinish else TodoIcons.TodoSelectedStateNormal,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }, modifier = Modifier.padding(end = 12.dp))
             } else {
@@ -97,7 +103,5 @@ fun TodoAppBar(todoState: TodoState) {
                 }
             }
         },
-        backgroundColor = MaterialTheme.colors.background,
-        contentColor = MaterialTheme.colors.onBackground
     )
 }

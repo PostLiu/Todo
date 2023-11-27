@@ -136,6 +136,7 @@ class TodoState(
             } else {
                 bottomSheetScaffoldState.bottomSheetState.expand()
             }
+            hideSoftKeyboard()
         }
     }
 

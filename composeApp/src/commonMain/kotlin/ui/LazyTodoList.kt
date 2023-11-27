@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ext.formatDateBefore
 import kotlinx.datetime.Clock
+import theme.TodoMaterialTheme
 import viewmodel.TodoAction
 import viewmodel.TodoState
 
@@ -75,7 +75,7 @@ fun LazyTodoList(modifier: Modifier = Modifier, todoState: TodoState) {
                             text = (Clock.System.now()
                                 .toEpochMilliseconds() - it.time).formatDateBefore(),
                             fontSize = 12.sp,
-                            color = MaterialTheme.colors.secondaryVariant,
+                            color = if (it.completed == 1L) TodoMaterialTheme.colors.onPrimary else TodoMaterialTheme.colors.primary,
                             modifier = Modifier.align(Alignment.End)
                         )
                     }

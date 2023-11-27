@@ -52,11 +52,20 @@ fun BottomSheetEditTodo(todoState: TodoState) {
                 Box(modifier = Modifier.weight(1f),
                     contentAlignment = Alignment.Center,
                     content = { Text("新建待办", fontWeight = FontWeight.Bold, fontSize = 18.sp) })
-                TextButton(onClick = {
-                    if (clickTodo != null) {
-                        val todoId = clickTodo?.id
-                        if (todoId != null) {
-                            todoState.dispatch(TodoAction.EditTodo(todoId, input))
+                TextButton(
+                    onClick = {
+                        if (clickTodo != null) {
+                            val todoId = clickTodo?.id
+                            if (todoId != null) {
+                                todoState.dispatch(TodoAction.EditTodo(todoId, input))
+                            } else {
+                                todoState.dispatch(
+                                    TodoAction.AddTodo(
+                                        content = input,
+                                        time = Clock.System.now().toEpochMilliseconds()
+                                    )
+                                )
+                            }
                         } else {
                             todoState.dispatch(
                                 TodoAction.AddTodo(
@@ -65,16 +74,11 @@ fun BottomSheetEditTodo(todoState: TodoState) {
                                 )
                             )
                         }
-                    } else {
-                        todoState.dispatch(
-                            TodoAction.AddTodo(
-                                content = input,
-                                time = Clock.System.now().toEpochMilliseconds()
-                            )
-                        )
-                    }
-                    input = ""
-                }, enabled = input.isNotEmpty(), content = { Text("保存") })
+                        input = ""
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.secondary),
+                    enabled = input.isNotEmpty(),
+                    content = { Text("保存") })
             })
         OutlinedTextField(
             value = input,
