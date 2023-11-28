@@ -1,4 +1,11 @@
 import androidx.compose.ui.window.ComposeUIViewController
+import platform.UIKit.UIViewController
 import theme.TodoMaterialTheme
 
-fun MainViewController() = ComposeUIViewController { TodoMaterialTheme { App() } }
+fun MainViewController(): UIViewController {
+    return ComposeUIViewController {
+        TodoMaterialTheme {
+            App()
+        }
+    }
+}

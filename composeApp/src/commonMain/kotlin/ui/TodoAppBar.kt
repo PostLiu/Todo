@@ -10,7 +10,6 @@ import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -21,8 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import theme.TodoMaterialTheme
 import todoicons.TodoSelectedStateFinish
 import todoicons.TodoSelectedStateNormal
 import viewmodel.TodoAction
@@ -37,8 +36,8 @@ fun TodoAppBar(todoState: TodoState) {
     val canDeleted by todoState.canDeleted.collectAsState()
     val hideCompletedTodo by todoState.hideCompleted.collectAsState()
     TopAppBar(
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        contentColor = Color.Black,
+        backgroundColor = TodoMaterialTheme.colors.primary,
+        contentColor = TodoMaterialTheme.colors.onPrimary,
         title = {
             AnimatedVisibility(
                 editMode, enter = expandHorizontally(), exit = shrinkHorizontally()

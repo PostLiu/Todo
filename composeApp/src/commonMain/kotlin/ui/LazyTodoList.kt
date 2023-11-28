@@ -1,7 +1,7 @@
 package ui
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,7 +31,7 @@ fun LazyTodoList(modifier: Modifier = Modifier, todoState: TodoState) {
     val editMode by todoState.editMode.collectAsState()
     LazyColumn(
         modifier = Modifier.fillMaxSize().then(modifier),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
     ) {
         items(items = todoList, key = { it.id }, contentType = { it.id }, itemContent = {
             TodoListItem(modifier = Modifier.fillMaxWidth(),
@@ -60,23 +60,22 @@ fun LazyTodoList(modifier: Modifier = Modifier, todoState: TodoState) {
                     }
                 },
                 content = {
-                    Column(
+                    Row(
                         modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
-                        horizontalAlignment = Alignment.Start
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = it.content,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.W500,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f)
                         )
                         Text(
                             text = (Clock.System.now()
                                 .toEpochMilliseconds() - it.time).formatDateBefore(),
                             fontSize = 12.sp,
-                            color = if (it.completed == 1L) TodoMaterialTheme.colors.onPrimary else TodoMaterialTheme.colors.primary,
-                            modifier = Modifier.align(Alignment.End)
+                            color = TodoMaterialTheme.colors.onSurface,
                         )
                     }
                 })

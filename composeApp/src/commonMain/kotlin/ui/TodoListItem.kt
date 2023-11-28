@@ -14,11 +14,12 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import theme.TodoMaterialTheme
 import todoicons.TodoCompletedStateFinish
 import todoicons.TodoCompletedStateNormal
 import todoicons.TodoSelectedStateFinish
@@ -28,6 +29,8 @@ import todoicons.TodoSelectedStateNormal
 @Composable
 fun TodoListItem(
     modifier: Modifier = Modifier,
+    backgroundColor: Color = TodoMaterialTheme.colors.surface,
+    contentColor: Color = TodoMaterialTheme.colors.onSurface,
     editMode: Boolean,
     isCompleted: Boolean,
     isSelected: Boolean,
@@ -38,11 +41,12 @@ fun TodoListItem(
 ) {
     Card(modifier = modifier,
         shape = RoundedCornerShape(8.dp),
-        backgroundColor = if (isCompleted) MaterialTheme.colors.secondary else MaterialTheme.colors.surface,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         onClick = onClick,
         content = {
             Row(
-                modifier = modifier.then(Modifier.padding(8.dp)),
+                modifier = Modifier.padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AnimatedVisibility(
