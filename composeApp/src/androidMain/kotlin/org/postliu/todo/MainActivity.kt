@@ -1,7 +1,6 @@
 package org.postliu.todo
 
 import App
-import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
 import org.postliu.todo.utils.ContextUtils
+import platform.setStatusBarColor
 import theme.TodoMaterialTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +23,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             TodoMaterialTheme {
                 val color = TodoMaterialTheme.colors.primary.toArgb()
+                val isDark = TodoMaterialTheme.colors.isDark
                 SideEffect {
-                    window.statusBarColor = color
-                    WindowCompat.getInsetsController(window, window.decorView).apply {
-                        isAppearanceLightStatusBars = Color.luminance(color) > 0.5f
-                    }
+                    setStatusBarColor(color = color, isDark = isDark)
                 }
                 Surface(
                     modifier = Modifier
