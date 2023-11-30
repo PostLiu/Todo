@@ -8,6 +8,7 @@ struct ComposeView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        uiViewController.edgesForExtendedLayout = UIRectEdge.all
     }
 }
 

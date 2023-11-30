@@ -1,6 +1,8 @@
 package platform
 
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.useContents
+import platform.CoreGraphics.CGRectMake
 import platform.UIKit.UIApplication
 import platform.UIKit.UIColor
 import platform.UIKit.UIStatusBarStyleDarkContent
@@ -22,8 +24,11 @@ actual fun setStatusBarColor(color: Int, isDark: Boolean) {
         UIStatusBarStyleLightContent
     }
     val statusBar = UIView()
-    statusBar.setFrame(UIApplication.sharedApplication().statusBarFrame)
-    statusBar.setBackgroundColor(uiColor)
+    val statusBarFrame = UIApplication.sharedApplication().statusBarFrame
+    statusBarFrame.useContents {
+        statusBar.setFrame(CGRectMake(0.0, 0.0, size.width, size.height + 5))
+        statusBar.setBackgroundColor(uiColor)
+        UIApplication.sharedApplication().keyWindow()?.addSubview(statusBar)
+    }
     UIApplication.sharedApplication().setStatusBarStyle(statusBarStyle)
-    UIApplication.sharedApplication().keyWindow()?.addSubview(statusBar)
 }

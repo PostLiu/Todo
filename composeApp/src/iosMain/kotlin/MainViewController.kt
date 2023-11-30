@@ -6,14 +6,13 @@ import platform.setStatusBarColor
 import theme.TodoMaterialTheme
 
 fun MainViewController(): UIViewController {
-    return ComposeUIViewController {
+    val viewController = ComposeUIViewController(content = {
         TodoMaterialTheme {
             val color = TodoMaterialTheme.colors.primary.toArgb()
             val isDark = TodoMaterialTheme.colors.isDark
-            SideEffect {
-                setStatusBarColor(color = color, isDark = isDark)
-            }
+            SideEffect { setStatusBarColor(color = color, isDark = isDark) }
             App()
         }
-    }
+    })
+    return viewController
 }
